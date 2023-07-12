@@ -21,32 +21,22 @@ class Quizzler extends StatelessWidget {
   }
 }
 
-List<Icon> scoreKeeper = [
-  Icon(
-    Icons.check,
-    color: Colors.green,
-  ),
-  Icon(
-    Icons.close,
-    color: Colors.red,
-  ),
-  Icon(
-    Icons.check,
-    color: Colors.green,
-  ),
-  Icon(
-    Icons.close,
-    color: Colors.red,
-  ),
-  Icon(
-    Icons.check,
-    color: Colors.green,
-  ),
-  Icon(
-    Icons.close,
-    color: Colors.red,
-  ),
+List<Icon> scoreKeeper = [];
+
+List<String> questions = [
+  'You can lead a cow down stairs but not up stairs',
+  'Approximately one quarter of human bones are in the feet.',
+  'A slug\'s blood is green.'
+
 ];
+
+List <bool> answers = [
+  false,
+  true,
+  true,
+];
+
+int questionNumber = 0;
 
 class QuizPage extends StatefulWidget {
   @override
@@ -66,7 +56,7 @@ class _QuizPageState extends State<QuizPage> {
             padding: EdgeInsets.all(10.0),
             child: Center(
               child: Text(
-                'É aqui onde vai ficar o texto da proxima questão',
+                questions[questionNumber],
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   fontSize: 25.0,
@@ -91,11 +81,19 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
-                setState(() {
-                        scoreKeeper.add( 
-                  Icon(Icons.check, color: Colors.green,),
-                );
-                });
+
+              bool correctAnswer = answers(questionNumber);
+
+              if (correctAnswer == true) {
+                print('user got it right');
+              } else {
+                print('user got it wrong');
+              }
+              setState(() {
+                questionNumber++;
+              });
+              print(questionNumber);
+              
                 // The user picked true.
               },
             ),
@@ -116,6 +114,11 @@ class _QuizPageState extends State<QuizPage> {
                 ),
               ),
               onPressed: () {
+                  setState(() {
+                questionNumber++;
+              });
+              print(questionNumber);
+              
                 // The user picked false.
               },
             ),
